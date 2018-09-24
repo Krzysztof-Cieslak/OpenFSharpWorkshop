@@ -3,21 +3,23 @@ module Server
 open Saturn
 open Config
 
-let endpointPipe = pipeline {
-    plug head
-    plug requestId
-}
+// -------------------------
+// TASK 4
+// Last abstraction introduced by Saturn is `application` - it aims to replace ugly ASP.NET Core configuration with set of
+// of high level feature flags that hides all the complexity and imperative configuration.
+//
+// TASK: Create the `pipeline` and plug it into application using `pipe_through` operation.
+// This pipeline will be executed for every request  comming to the server.
+// It's can be very useful for cross cutting concernes. Plug  built-in `head` and `requestId` into your pipeline.
+//
+// TASK 2: Create error handler for your application using custom handler that will render error view (defined in InternalError module)
+// and `error_handler` operation in `application` CE.
+// -------------------------
 
 let app = application {
-    pipe_through endpointPipe
-
-    error_handler (fun ex _ -> pipeline { render_html (InternalError.layout ex) })
     use_router Router.appRouter
     url "http://0.0.0.0:8085/"
-    memory_cache
     use_static "static"
-    use_gzip
-    use_config (fun _ -> {connectionString = "DataSource=database.sqlite"} ) //TODO: Set development time configuration
 }
 
 [<EntryPoint>]

@@ -6,11 +6,7 @@ open Types
 let init () : Model * Cmd<Msg> =
   0, []
 
-let update msg model =
+//TASK 1: implement update function
+let update msg model : Model * Cmd<Msg> =
   match msg with
-  | Increment ->
-      model + 1, []
-  | Decrement ->
-      model - 1, []
-  | Reset ->
-      0, []
+  | NoOp -> 0, []

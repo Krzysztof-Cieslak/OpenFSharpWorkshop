@@ -24,6 +24,7 @@ let menuItem label page currentPage =
             Href (toHash page) ]
           [ str label ] ]
 
+//TASK 2: Update view
 let menu currentPage =
   aside
     [ ClassName "menu" ]
@@ -32,25 +33,18 @@ let menu currentPage =
         [ str "General" ]
       ul
         [ ClassName "menu-list" ]
-        [ menuItem "Home" Home currentPage
-          menuItem "Counter sample" Counter currentPage
-          menuItem "About" Page.About currentPage ] ]
+        [ menuItem "Counter sample" Counter currentPage] ]
 
 let root model dispatch =
 
+  //TASK 2: Update view
   let pageHtml =
     function
-    | Page.About -> Info.View.root
     | Counter -> Counter.View.root model.counter (CounterMsg >> dispatch)
-    | Home -> Home.View.root model.home (HomeMsg >> dispatch)
 
   div
     []
-    [ div
-        [ ClassName "navbar-bg" ]
-        [ div
-            [ ClassName "container" ]
-            [ Navbar.View.root ] ]
+    [
       div
         [ ClassName "section" ]
         [ div

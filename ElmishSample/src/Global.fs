@@ -1,12 +1,10 @@
 module Global
 
+//TASK 2: Add new page
 type Page =
-  | Home
   | Counter
-  | About
 
+//TASK 2: Add new page
 let toHash page =
   match page with
-  | About -> "#about"
   | Counter -> "#counter"
-  | Home -> "#home"

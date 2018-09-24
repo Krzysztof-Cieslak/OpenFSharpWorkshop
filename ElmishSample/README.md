@@ -1,31 +1,4 @@
-# Fable.Elmish.React Template
-
-This template can be used to generate a simple web app with [Fable](http://fable.io/) and [Elmish](https://fable-elmish.github.io/).
-You can find more templates by searching `Fable.Template` packages in [Nuget](https://www.nuget.org).
-
-## Requirements
-
-* [dotnet SDK](https://www.microsoft.com/net/download/core) 2.0.0 or higher
-* [node.js](https://nodejs.org) 4.8.2 or higher
-* npm5: JS package manager
-
-Although is not a Fable requirement, on macOS and Linux you'll need [Mono](http://www.mono-project.com/) for other F# tooling like Paket or editor support.
-
-## Editor
-
-The project can be used by editors compatible with the new .fsproj format, like VS Code + [Ionide](http://ionide.io/), Emacs with [fsharp-mode](https://github.com/fsharp/emacs-fsharp-mode) or [Rider](https://www.jetbrains.com/rider/). **Visual Studio for Mac** is also compatible but in the current version the package auto-restore function conflicts with Paket so you need to disable it: `Preferences > Nuget > General`.
-
-## Installing the template
-
-In a terminal, run `dotnet new -i Fable.Template.Elmish.React::*` to install or update the template to latest version.
-
-> In some shells you many need quotations: `dotnet new -i "Fable.Template.Elmish.React::*"`. If you use dotnet SDK 2, you should only need to type `dotnet new -i Fable.Template.Elmish.React`.
-
-## Creating a new project with the template
-
-In a terminal, run `dotnet fable-elmish-react` to create a project in the current directory. Type `dotnet new fable-elmish-react -n awesome` instead to create a subfolder named `awesome` and put the new project there.
-
-> The project will have the name of the directory. You may get some issues if the directory name contains some special characters like hyphens
+# Elmish Sample
 
 ## Building and running the app
 
@@ -39,34 +12,21 @@ In a terminal, run `dotnet fable-elmish-react` to create a project in the curren
 
 If you are using VS Code + [Ionide](http://ionide.io/), you can also use the key combination: Ctrl+Shift+B (Cmd+Shift+B on macOS) instead of typing the `dotnet fable yarn-start` command. This also has the advantage that Fable-specific errors will be highlighted in the editor along with other F# errors.
 
-Any modification you do to the F# code will be reflected in the web page after saving. When you want to output the JS code to disk, run `dotnet fable yarn-build` (or `npm-build`) and you'll get a minified JS bundle in the `public` folder.
 
-## Project structure
+## Tasks
 
-### Paket
+### Task 1
 
-[Paket](https://fsprojects.github.io/Paket/) is the package manager used for F# dependencies. It doesn't need a global installation, the binary is included in the `.paket` folder. Other Paket related files are:
+In task 1 our aim is to make the counter displayed by default on the webpage working correctly. The current implementation has few problems - the model is just plain `int` (which is theoretically fine, but it doesn't happen too often in practice - usually we have more complex models using F# types), the message type doesn't contain any meaningful operations (and after changing it will require updating code in other places).
+Start with editing `Counter/Types.fs` file, and then move to other files in `Counter` folder. Compiler errors should guide you to places requiring changes
 
-- **paket.dependencies**: contains all the dependencies in the repository.
-- **paket.references**: there should be one such a file next to each `.fsproj` file.
-- **paket.lock**: automatically generated, but should committed to source control, [see why](https://fsprojects.github.io/Paket/faq.html#Why-should-I-commit-the-lock-file).
-- **Nuget.Config**: prevents conflicts with Paket in machines with some Nuget configuration.
+### Task 2
 
-> Paket dependencies will be installed in the `packages` directory. See [Paket website](https://fsprojects.github.io/Paket/) for more info.
+In task 2 we will create completely new view (something simple - for example text box, and the string displaying reversed text from the text box), and we will plug it into our application. Our aim here is to understand how does navigation works in typical Elmish application.
+Start with creating new component (State.fs, Types.fs, View.fs - use similar code structure to the one from Counter example) (And don't forget to add new files to fsproj file!). Then, edit Global.fs and Type.fs files, updating our types and helper functions to support new page. And in the end, move to State.fs and App.fs files - compiler should guide you to places requiring changes.
 
-### npm
+### Task 3
 
-- **package.json**: contains the JS dependencies together with other info, like development scripts.
-- **package-lock.json**: is the lock file created by npm5.
+In task 3 we will create complex view - the view using previously created component (Counter) to build more complex view. The task is to create new page that will initially display one counter, but will also have a button that will add new counter to the view. The page should also have a text field that will display the sum of all counters on the page.
 
-> JS dependencies will be installed in `node_modules`. See [npm](https://www.npmjs.com/) website for more info.
-
-### Webpack
-
-[Webpack](https://webpack.js.org) is a bundler, which links different JS sources into a single file making deployment much easier. It also offers other features, like a static dev server that can automatically refresh the browser upon changes in your code or a minifier for production release. Fable interacts with Webpack through the `fable-loader`.
-
-- **webpack.config.js**: is the configuration file for Webpack. It allows you to set many things: like the path of the bundle, the port for the development server or [Babel](https://babeljs.io/) options. See [Webpack website](https://webpack.js.org) for more info.
-
-### F# source files
-
-The template only contains two F# source files: the project (.fsproj) and a source file (.fs) in `src` folder.
+Start with creating new component (State.fs, Types.fs, View.fs - use similar code structure to the one from Counter example) (And don't forget to add new files to fsproj file!) using Counter component, and add it to navigation system.

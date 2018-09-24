@@ -6,7 +6,7 @@ A [Giraffe](https://github.com/giraffe-fsharp/Giraffe) web application, which ha
 
 ### Windows
 
-Run the `build.bat` script in order to restore, build and test (if you've selected to include tests) the application:
+Run the `build.bat` script in order to restore and build the application:
 
 ```
 > ./build.bat
@@ -14,7 +14,7 @@ Run the `build.bat` script in order to restore, build and test (if you've select
 
 ### Linux/macOS
 
-Run the `build.sh` script in order to restore, build and test (if you've selected to include tests) the application:
+Run the `build.sh` script in order to restore and build the application:
 
 ```
 $ ./build.sh
@@ -25,7 +25,11 @@ $ ./build.sh
 After a successful build you can start the web application by executing the following command in your terminal:
 
 ```
-dotnet run src/GiraffeSample
+dotnet watch --project src/GiraffeSample/GirafeSample.fsproj
 ```
 
-After the application has started visit [http://localhost:5000](http://localhost:5000) in your preferred browser.
+After the application has started visit [http://localhost:8080](http://localhost:8080) in your preferred browser. Application is running in the watch mode - it means it will recompile and restart on every file save.
+
+## Tasks
+
+All the tasks are in Program.fs file.
